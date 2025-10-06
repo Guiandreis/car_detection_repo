@@ -34,7 +34,10 @@ Issues = "https://github.com/unknown/object-detection-repo/issues"
 Source = "https://github.com/unknown/object-detection-repo"
 
 [tool.hatch.version]
-path = "src/object_detection_repo/__about__.py"
+path = "src/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
 
 [tool.hatch.envs.default]
 dependencies = [
