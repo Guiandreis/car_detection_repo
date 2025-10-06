@@ -1,0 +1,5 @@
+thresholds:
+  conf: 0.25
+  iou: 0.45 
+
+model: yolov8n.pt
