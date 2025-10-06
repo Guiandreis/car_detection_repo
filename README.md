@@ -1,3 +1,23 @@
+## 🎯 Core Functionality
+
+- **🔍 Object Detection**: Uses YOLOv8 to detect objects in images
+- **🚗 Car Filtering**: Intelligently filters detections to focus on cars (class_id=2)
+- **📊 Data Persistence**: Stores and retrieves car counts per image
+- **🏛️ Clean Architecture**: Demonstrates SOLID principles and dependency inversion
+
+## 📝 Blog Post Series: From Simple to Production
+
+This project evolves through a comprehensive blog post series, with each iteration adding production-ready features:
+The order of the phases of the project can change, and new phases and parts will be added. 
+
+### **Phase 1: Foundation** 🏗️
+1. **Part 1**: Hexagonal Architecture Fundamentals *(current version)*
+2. **Part 2**: Unit Testing & Test-Driven Development
+3. **Part 3**: GitHub Actions CI/CD Pipeline, Code Formatting & Linting
+
+### **Phase 2: Coming Soon** 🚀
+*Stay tuned for exciting new features and production-ready enhancements!*
+...
 # 🚗 Object Detection with Hexagonal Architecture
 
 A comprehensive object detection project demonstrating **Hexagonal Architecture** (Ports and Adapters) principles using YOLO for real-time car detection. This project serves as both a practical application and a learning resource for clean architecture patterns in Python.
@@ -55,26 +75,7 @@ src/
    python src/main.py
    ```
 
-## 🎯 Core Functionality
 
-- **🔍 Object Detection**: Uses YOLOv8 to detect objects in images
-- **🚗 Car Filtering**: Intelligently filters detections to focus on cars (class_id=2)
-- **📊 Data Persistence**: Stores and retrieves car counts per image
-- **🏛️ Clean Architecture**: Demonstrates SOLID principles and dependency inversion
-
-## 📝 Blog Post Series: From Simple to Production
-
-This project evolves through a comprehensive blog post series, with each iteration adding production-ready features:
-The order of the phases of the project can change, and new phases and parts will be added. 
-
-### **Phase 1: Foundation** 🏗️
-1. **Part 1**: Hexagonal Architecture Fundamentals *(current version)*
-2. **Part 2**: Unit Testing & Test-Driven Development
-3. **Part 3**: GitHub Actions CI/CD Pipeline, Code Formatting & Linting
-
-### **Phase 2: Coming Soon** 🚀
-*Stay tuned for exciting new features and production-ready enhancements!*
-...
 
 ## 🏛️ Why Hexagonal Architecture?
 
