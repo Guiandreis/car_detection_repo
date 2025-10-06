@@ -25,7 +25,6 @@ class YOLODetection(ObjectDetectionInterface):
         """Detect the cars in the image.
 
         Args:
-        
             image_path (str): The path to the image.
 
         Returns:
