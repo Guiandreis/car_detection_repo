@@ -1,2 +1,1 @@
-# object_detection_repo
-Repo for object detecion
+Hey guys this is my first project
