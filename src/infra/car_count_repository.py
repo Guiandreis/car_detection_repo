@@ -1,5 +1,5 @@
 from typing import List
-from src.adapters.repository_interface import RepositoryInterface
+from src.ports.repository_interface import RepositoryInterface
 
 class CarCountRepository(RepositoryInterface):
     """Repository to save and get the car count per image."""

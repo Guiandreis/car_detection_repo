@@ -13,4 +13,4 @@ class FilterCarDetections:
         Returns:
             List[tuple]: List of car detections
         """
-        return [detection for detection in detections if detection[0][-1] == self.class_id]
+        return [detection for detection in detections if detection[-1] == self.class_id]
