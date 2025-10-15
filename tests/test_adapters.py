@@ -45,3 +45,20 @@ class TestYOLODetection:
         
         assert result == expected_formatted_detections
         mock_format.assert_called_once_with(mock_detection_data)
+
+    @patch('src.adapters.yolo_detection.YOLO')
+    def test_init_raises_runtime_error_on_model_load_failure(self, mock_yolo):
+        """Test that RuntimeError is raised when YOLO model fails to load."""
+        mock_yolo.side_effect = Exception("Model loading failed")
+        
+        with pytest.raises(RuntimeError, match="Failed to load YOLO model: Model loading failed"):
+            YOLODetection(model_path="yolov8n.pt")
+
+    @patch('src.adapters.yolo_detection.os.path.exists')
+    def test_detect_raises_runtime_error_on_detection_failure(self, mock_exists, yolo_detection):
+        """Test that RuntimeError is raised when detection fails."""
+        mock_exists.return_value = True
+        
+        with patch.object(yolo_detection.model, 'predict', side_effect=Exception("Detection failed")):
+            with pytest.raises(RuntimeError, match="Detection failed: Detection failed"):
+                yolo_detection.detect("test_image.jpg")
