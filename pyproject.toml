@@ -45,7 +45,6 @@ packages = ["src"]
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
-  "pytest-cov",
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
