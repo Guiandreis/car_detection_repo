@@ -11,6 +11,7 @@
 - [ ] 🐛 Bug fix
 - [ ] ✨ New feature
 - [ ] 📝 Documentation
+- [ ] 🏗️ Build
 - [ ] ♻️ Refactoring
 - [ ] ✅ Tests
 
