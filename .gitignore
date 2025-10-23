@@ -9,3 +9,10 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+
+# Coverage reports
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.pytest_cache/
