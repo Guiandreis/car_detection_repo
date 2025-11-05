@@ -45,6 +45,7 @@ packages = ["src"]
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
+  "ruff>=0.1.0",
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
@@ -160,6 +161,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
     "FBT",    # Boolean arguments in tests are acceptable
     "PLR2004", # Magic values in tests are acceptable
     "S106",   # Possible hardcoded password (tests may contain dummy data)
+    "D",      # Ignore all docstring rules in tests
 ]
 "main.py" = [
     "T201",   # print() statements are acceptable in main script
@@ -178,3 +180,6 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
+exclude = [
+    "tests/**/*.py",  # Exclude all test files from formatting
+]

@@ -1,10 +1,15 @@
-from typing import List
-
 class FilterCarDetections:
+    """Filter car detections."""
+
     def __init__(self, class_id: int):
+        """Initialize the filter car detections.
+
+        Args:
+            class_id (int): The class ID of the car.
+        """
         self.class_id = class_id
 
-    def filter_car_detections(self, detections: List[tuple]) -> List[tuple]:
+    def filter_car_detections(self, detections: list[tuple]) -> list[tuple]:
         """Filter detections to only include cars.
 
         Args:

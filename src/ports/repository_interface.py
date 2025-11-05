@@ -1,15 +1,43 @@
 from abc import ABC, abstractmethod
-from typing import List
+
 
 class RepositoryInterface(ABC):
+    """Interface for the repository.
+
+    Args:
+        ABC: Abstract base class.
+    """
+
     @abstractmethod
     def get_car_count_per_image(self, image_path: str) -> int:
-        pass
-    
+        """Get the car count per image.
+
+        Args:
+            image_path (str): The path to the image.
+
+        Returns:
+            int: The car count.
+        """
+        raise_error_message = "Subclasses must implement this method"
+        raise NotImplementedError(raise_error_message)
+
     @abstractmethod
     def save_car_count_per_image(self, image_path: str, car_count: int):
-        pass
-    
+        """Save the car count per image.
+
+        Args:
+            image_path (str): The path to the image.
+            car_count (int): The car count.
+        """
+        raise_error_message = "Subclasses must implement this method"
+        raise NotImplementedError(raise_error_message)
+
     @abstractmethod
-    def get_all_car_counts(self) -> List[int]:
-        pass
+    def get_all_car_counts(self) -> list[int]:
+        """Get all the car counts.
+
+        Returns:
+            List[int]: The car counts.
+        """
+        raise_error_message = "Subclasses must implement this method"
+        raise NotImplementedError(raise_error_message)

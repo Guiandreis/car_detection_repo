@@ -1,9 +1,19 @@
+from pathlib import Path
+from typing import Any
+
 from ultralytics import YOLO
+
 from src.ports.object_detection_port import ObjectDetectionInterface
-import os
-from typing import List, Any, Tuple
+
 
 class YOLODetection(ObjectDetectionInterface):
+    """YOLO-based object detection implementation.
+
+    This class provides object detection functionality using the YOLO model.
+    It implements the ObjectDetectionInterface and handles model loading,
+    image detection, and result formatting.
+    """
+
     def __init__(self, model_path: str):
         """Initialize the YOLODetection class.
 
@@ -14,19 +24,21 @@ class YOLODetection(ObjectDetectionInterface):
             FileNotFoundError: If the model file doesn't exist.
             RuntimeError: If the model fails to load.
         """
-        if not os.path.exists(model_path):
-            raise FileNotFoundError(f"Model file not found: {model_path}")
+        if not Path(model_path).exists():
+            raise_error_message = f"Model file not found: {model_path}"
+            raise FileNotFoundError(raise_error_message)
         try:
             self.model = YOLO(model_path)
-        except Exception as e:
-            raise RuntimeError(f"Failed to load YOLO model: {e}")
-        
-    def format_to_list_output(self, detections: Any) -> List[Tuple[float, ...]]:
+        except (FileNotFoundError, RuntimeError, ValueError) as e:
+            raise_error_message = f"Failed to load YOLO model: {e}"
+            raise RuntimeError(raise_error_message) from e
+
+    def format_to_list_output(self, detections: Any) -> list[tuple[float, ...]]:
         """Format the detections to a list of detections.
-        
+
         Args:
             detections (Any): The detections to format from YOLO model.
-            
+
         Returns:
             List[tuple]: The formatted detections as list of tuples.
         """
@@ -34,10 +46,10 @@ class YOLODetection(ObjectDetectionInterface):
         for detection in detections:
             boxes_data = detection.boxes.data.cpu().numpy()
             for box in boxes_data:
-                result.append(tuple(box))
+                result.extend(tuple(box))
         return result
 
-    def detect(self, image_path: str) -> List[Tuple[float, ...]]:
+    def detect(self, image_path: str) -> list[tuple[float, ...]]:
         """Detect the cars in the image.
 
         Args:
@@ -50,11 +62,13 @@ class YOLODetection(ObjectDetectionInterface):
             FileNotFoundError: If the image file doesn't exist.
             RuntimeError: If detection fails.
         """
-        if not os.path.exists(image_path):
-            raise FileNotFoundError(f"Image file not found: {image_path}")
-        
+        if not Path(image_path).exists():
+            raise_error_message = f"Image file not found: {image_path}"
+            raise FileNotFoundError(raise_error_message)
+
         try:
             detections = self.model.predict(image_path)
             return self.format_to_list_output(detections)
-        except Exception as e:
-            raise RuntimeError(f"Detection failed: {e}")
+        except (RuntimeError, ValueError, AttributeError) as e:
+            raise_error_message = f"Detection failed: {e}"
+            raise RuntimeError(raise_error_message) from e
