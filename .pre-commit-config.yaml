@@ -1,0 +1,36 @@
+default_install_hook_types: [pre-commit, pre-push]
+
+repos:
+  # Basic quality checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+        args: [--maxkb=10000]  # Prevent files >10MB
+      - id: check-merge-conflict
+
+  # Ruff formatting and linting (official hooks)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4  # Check for latest version
+    hooks:
+      - id: ruff-format  # Auto-format code
+        stages: [pre-commit]
+
+      - id: ruff         # Lint with auto-fix
+        args: [--fix, --exit-non-zero-on-fix]
+        stages: [pre-commit]
+
+  # Run tests before push
+  - repo: local
+    hooks:
+      - id: tests
+        name: Run unit tests
+        entry: uv run pytest --cov=src --cov-report=term --cov-report=html
+        language: system
+        stages: [pre-push]
+        verbose: true
+        require_serial: true
+        pass_filenames: false
