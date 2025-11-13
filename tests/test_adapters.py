@@ -36,13 +36,13 @@ class TestYOLODetection:
         for detection in result:
             assert detection[-1] == 2.0
 
-    @patch("src.adapters.yolo_detection.os.path.exists")
+    @patch("pathlib.Path.exists")
     def test_detect_file_not_found(self, mock_exists, yolo_detection):
         mock_exists.return_value = False
         with pytest.raises(FileNotFoundError, match="Image file not found"):
             yolo_detection.detect("nonexistent_image.jpg")
 
-    @patch("src.adapters.yolo_detection.os.path.exists")
+    @patch("pathlib.Path.exists")
     @patch.object(YOLODetection, "format_to_list_output")
     def test_detect_success(
         self,
@@ -67,14 +67,14 @@ class TestYOLODetection:
     @patch("src.adapters.yolo_detection.YOLO")
     def test_init_raises_runtime_error_on_model_load_failure(self, mock_yolo):
         """Test that RuntimeError is raised when YOLO model fails to load."""
-        mock_yolo.side_effect = Exception("Model loading failed")
+        mock_yolo.side_effect = RuntimeError("Model loading failed")
 
         with pytest.raises(
             RuntimeError, match="Failed to load YOLO model: Model loading failed"
         ):
             YOLODetection(model_path="yolov8n.pt")
 
-    @patch("src.adapters.yolo_detection.os.path.exists")
+    @patch("pathlib.Path.exists")
     def test_detect_raises_runtime_error_on_detection_failure(
         self, mock_exists, yolo_detection
     ):
@@ -82,7 +82,7 @@ class TestYOLODetection:
         mock_exists.return_value = True
 
         with patch.object(
-            yolo_detection.model, "predict", side_effect=Exception("Detection failed")
+            yolo_detection.model, "predict", side_effect=RuntimeError("Detection failed")
         ), pytest.raises(
             RuntimeError, match="Detection failed: Detection failed"
         ):
