@@ -16,3 +16,6 @@ __pycache__/
 coverage.xml
 htmlcov/
 .pytest_cache/
+
+# Ruff cache
+.ruff_cache/
