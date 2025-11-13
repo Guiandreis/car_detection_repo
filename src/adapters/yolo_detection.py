@@ -45,8 +45,7 @@ class YOLODetection(ObjectDetectionInterface):
         result = []
         for detection in detections:
             boxes_data = detection.boxes.data.cpu().numpy()
-            for box in boxes_data:
-                result.extend(tuple(box))
+            result.extend(tuple(float(x) for x in box) for box in boxes_data)
         return result
 
     def detect(self, image_path: str) -> list[tuple[float, ...]]:

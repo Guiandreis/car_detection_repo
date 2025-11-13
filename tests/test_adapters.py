@@ -33,8 +33,9 @@ class TestYOLODetection:
     ):
         result = yolo_detection.format_to_list_output(mock_detection_data_cars_only)
         assert len(result) == 3
-        for detection in result:
-            assert detection[-1] == 2.0
+        assert result[0][-1] == 2.0
+        assert result[1][-1] == 2.0
+        assert result[2][-1] == 2.0
 
     @patch("pathlib.Path.exists")
     def test_detect_file_not_found(self, mock_exists, yolo_detection):
