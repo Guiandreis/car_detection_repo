@@ -37,9 +37,3 @@ install:
 	@echo "Installing git hooks..."
 	@uv run --no-project pre-commit install
 	@echo "✓ Setup complete!"
-
-clean:
-	@echo "Cleaning up..."
-	@rm -rf __pycache__ .pytest_cache .coverage htmlcov
-	@find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-	@find . -type f -name "*.pyc" -delete

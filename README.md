@@ -1,35 +1,12 @@
-## 🎯 Core Functionality
+# 🚗 Object Detection from scratch to production
 
-- **🔍 Object Detection**: Uses YOLOv8 to detect objects in images
-- **🚗 Car Filtering**: Intelligently filters detections to focus on cars (class_id=2)
-- **📊 Data Persistence**: Stores and retrieves car counts per image
-- **🏛️ Clean Architecture**: Demonstrates SOLID principles and dependency inversion
+> **📝 Blog Post Series**: This project is part of a comprehensive blog series on building production-ready Python applications.  
+> 🔗 **Read the blog posts**: https://guiandreis.github.io/
 
-## 📝 Blog Post Series: From Simple to Production
+---
 
-This project evolves through a comprehensive blog post series, with each iteration adding production-ready features:
-The order of the phases of the project can change, and new phases and parts will be added. 
+A comprehensive car detection project demonstrating how to build and deploy a project from scratch to production 
 
-### **Phase 1: Foundation** 🏗️
-1. **Part 1**: Hexagonal Architecture Fundamentals *(current version)*
-2. **Part 2**: Unit Testing & Test-Driven Development
-3. **Part 3**: GitHub Actions CI/CD Pipeline, Code Formatting & Linting
-
-### **Phase 2: Coming Soon** 🚀
-*Stay tuned for exciting new features and production-ready enhancements!*
-...
-# 🚗 Object Detection with Hexagonal Architecture
-
-A comprehensive object detection project demonstrating **Hexagonal Architecture** (Ports and Adapters) principles using YOLO for real-time car detection. This project serves as both a practical application and a learning resource for clean architecture patterns in Python.
-
-## 🏗️ Architecture Overview
-
-This project implements the **Hexagonal Architecture** pattern, also known as Ports and Adapters, which provides:
-
-- **🔄 Separation of Concerns**: Business logic is isolated from external dependencies
-- **🧪 Enhanced Testability**: Easy dependency injection and mocking for comprehensive testing
-- **🔧 Implementation Flexibility**: Swap detection models or data sources without changing core logic
-- **📈 Maintainability**: Clear boundaries make the codebase easier to understand and modify
 
 ### 📁 Project Structure
 
@@ -50,7 +27,7 @@ src/
 
 ### Prerequisites
 - **Python 3.11+**
-- **UV package manager** (recommended) or pip
+- **Make** (for automation commands)
 - **YOLOv8 model file** (`yolov8n.pt`)
 
 ### Installation & Setup
@@ -61,13 +38,9 @@ src/
    cd object_detection_repo
    ```
 
-2. **Install dependencies:**
+2. **One-command setup (installs uv, dependencies, and git hooks):**
    ```bash
-   # Using UV (recommended)
-   uv sync
-   
-   # Or using pip
-   pip install -e .
+   make install
    ```
 
 3. **Run the car detection:**
@@ -75,23 +48,18 @@ src/
    python src/main.py
    ```
 
+### Available Make Commands
 
-
-## 🏛️ Why Hexagonal Architecture?
-
-### **Key Benefits:**
-
-- **🧪 Testability**: Mock external dependencies easily for isolated unit testing
-- **🔄 Flexibility**: Swap YOLO for other detection models (TensorRT, ONNX, etc.)
-- **🛠️ Maintainability**: Clear separation makes code easier to understand and modify
-- **📈 Scalability**: Add new features without breaking existing functionality
-- **🔒 Independence**: Core business logic is independent of external frameworks
-
-### **Real-World Applications:**
-- **Microservices**: Each service can have its own hexagonal architecture
-- **API Development**: Clean separation between business logic and HTTP concerns
-- **Data Processing**: Easy to swap data sources (files, databases, APIs)
-- **ML Pipelines**: Flexible model swapping and testing
+```bash
+make install      # Install uv, dependencies, and git hooks
+make test         # Run tests with coverage
+make lint         # Run code linter (ruff)
+make format       # Format code with ruff
+make format-check # Check code formatting
+make typecheck    # Run type checker (mypy)
+make ci           # Run all CI checks (format-check, lint, typecheck, test)
+make clean        # Clean up cache and temporary files
+```
 
 ## 🛠️ Technology Stack
 
@@ -99,10 +67,43 @@ src/
 - **🎯 YOLOv8**: State-of-the-art object detection
 - **📦 UV**: Fast Python package management
 - **🏗️ Hatchling**: Modern Python packaging
+- **🧪 Pytest**: Testing framework with coverage
+- **🔍 Ruff**: Fast Python linter and formatter
+- **📝 MyPy**: Static type checker
+- **🪝 Pre-commit**: Git hooks for code quality
 
-## 📚 Learning Resources
+## 📊 Project Progress
 
-- [Hexagonal Architecture by Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture/)
-- [Clean Architecture by Robert Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
-- [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
+### ✅ Completed Features
+
+- [x] **Hexagonal Architecture Implementation**
+  - Ports and adapters pattern
+  - Clear separation of concerns
+  - Dependency inversion principle
+- [x] **Core Object Detection**
+  - YOLOv8 integration
+  - Car detection and filtering
+  - Image processing pipeline
+- [x] **Testing Infrastructure**
+  - Unit tests with 85%+ coverage
+  - Pytest configuration
+  - Mock-based testing
+- [x] **CI/CD Pipeline**
+  - GitHub Actions workflow
+  - Automated testing on push/PR
+  - Pre-commit and pre-push hooks
+- [x] **Code Quality Tools**
+  - Ruff for linting and formatting
+  - MyPy for type checking
+  - Pre-commit hooks integration
+- [x] **Developer Experience**
+  - Makefile for common tasks
+  - One-command setup (`make install`)
+  - Comprehensive README
+- [x] **[PLACEHOLDER - Add your completed topics here]**
+
+### 🔮 Upcoming Features (TODO)
+
+- [ ] **[Dataset Version Control (DVC)]**
+- [ ] **[MLFlow]**
+- [ ] **[Classification model training]**
