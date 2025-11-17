@@ -107,3 +107,4 @@ make clean        # Clean up cache and temporary files
 - [ ] **[Dataset Version Control (DVC)]**
 - [ ] **[MLFlow]**
 - [ ] **[Classification model training]**
+- [ ] **[SQL Database]**
