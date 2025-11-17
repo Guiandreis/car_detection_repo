@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.ports.repository_interface import RepositoryInterface
 
 
@@ -8,14 +10,14 @@ class CarCountRepository(RepositoryInterface):
         """Initialize the car count repository."""
         self.car_count_per_image = {}
 
-    def get_car_count_per_image(self, image_path: str) -> int:
-        """Get the car count for a given image path.
+    def get_car_count_per_image(self, image_path: str) -> Any:
+        """Get the car count per image.
 
         Args:
             image_path (str): The path to the image.
 
         Returns:
-            int: The car count for the given image path.
+            Any: The car count for the given image path.
         """
         return self.car_count_per_image.get(image_path, 0)
 

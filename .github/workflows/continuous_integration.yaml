@@ -17,11 +17,8 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Run ruff formatter check
-        run: uv run ruff format --check .
+      - name: Install dependencies
+        run: uv sync --locked --all-groups
 
-      - name: Run ruff linter
-        run: uv run ruff check .
-
-      - name: Run tests with coverage
-        run: uv run pytest --cov=src --cov-report=term --cov-report=html
+      - name: Run CI checks (via Makefile)
+        run: make ci

@@ -106,4 +106,3 @@ src/
 - [Clean Architecture by Robert Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
 - [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
-
