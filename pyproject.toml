@@ -30,6 +30,7 @@ dependencies = [
   "pytest-cov>=7.0.0",
   "pre-commit>=4.4.0",
   "ruff>=0.14.5",
+  "mypy>=1.0.0",
 ]
 
 [project.urls]
@@ -185,3 +186,26 @@ docstring-code-line-length = "dynamic"
 exclude = [
     "tests/**/*.py",  # Exclude all test files from formatting
 ]
+
+# Mypy configuration for type checking
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false  # Start lenient, can make stricter later
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+strict_optional = true
+namespace_packages = true
+explicit_package_bases = true
+mypy_path = "src"
+
+# Ignore missing imports from third-party libraries without type stubs
+[[tool.mypy.overrides]]
+module = [
+    "ultralytics.*",
+    "cv2.*",
+]
+ignore_missing_imports = true

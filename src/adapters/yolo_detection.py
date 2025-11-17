@@ -40,9 +40,9 @@ class YOLODetection(ObjectDetectionInterface):
             detections (Any): The detections to format from YOLO model.
 
         Returns:
-            List[tuple]: The formatted detections as list of tuples.
+            List[Tuple[float, ...]]: The formatted detections as list of tuples.
         """
-        result = []
+        result: list[tuple[float, ...]] = []
         for detection in detections:
             boxes_data = detection.boxes.data.cpu().numpy()
             result.extend(tuple(float(x) for x in box) for box in boxes_data)

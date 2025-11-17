@@ -29,3 +29,4 @@ if __name__ == "__main__":
     image_paths = ["images/car_image.jpg"]
     car_counts = main(image_paths)
     print(f"Car counts: {car_counts}")
+# Test comment
