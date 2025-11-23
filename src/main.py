@@ -13,6 +13,7 @@ def main(image_paths: list[str]):
         list[int]: The car counts for the given image paths.
     """
     local_car_count_repository = False
+    car_count_repository: InMemoryCarCountRepository | SQLiteCarCountRepository
     if local_car_count_repository:
         car_count_repository = InMemoryCarCountRepository()
     else:

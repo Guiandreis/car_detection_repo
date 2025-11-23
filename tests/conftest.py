@@ -1,6 +1,3 @@
-import os
-import tempfile
-from pathlib import Path
 from unittest.mock import Mock
 
 import numpy as np
@@ -17,17 +14,23 @@ def in_memory_car_count_repository():
 
 
 @pytest.fixture
-def temp_db():
-    """Create a temporary database file for testing."""
-    fd, path = tempfile.mkstemp(suffix=".db")
-    os.close(fd)
-    yield path
-    db_path = Path(path)
-    if db_path.exists():
-        db_path.unlink()
-@pytest.fixture
-def sqlite_car_count_repository(temp_db):
-    return SQLiteCarCountRepository(temp_db)
+def sqlite_car_count_repository(tmp_path):
+    """Create an isolated SQLite repository for each test.
+
+    Uses pytest's tmp_path fixture to ensure each test gets a fresh database
+    that is automatically cleaned up after the test completes.
+    """
+    # Create a unique database file in pytest's temporary directory
+    db_file = tmp_path / "test_car_detections.db"
+    repo = SQLiteCarCountRepository(str(db_file))
+
+    yield repo
+
+    # Cleanup: close connection and remove database files
+    repo.close()
+    # Remove all SQLite files (db, wal, shm)
+    for file in tmp_path.glob("test_car_detections.db*"):
+        file.unlink(missing_ok=True)
 
 @pytest.fixture
 def filter_car_detections():

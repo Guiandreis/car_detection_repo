@@ -19,7 +19,8 @@ class InMemoryCarCountRepository(RepositoryInterface):
         Returns:
             int: The car count for the given image path.
         """
-        return self.car_count_per_image.get(image_path, 0)
+        result: int = self.car_count_per_image.get(image_path, 0)
+        return result
 
     def save_car_count_per_image(self, image_path: str, car_count: int):
         """Save the car count for a given image path.
@@ -42,15 +43,26 @@ class InMemoryCarCountRepository(RepositoryInterface):
 class SQLiteCarCountRepository(RepositoryInterface):
     """Repository to save and get the car count per image using SQLite."""
 
-    def __init__(self, db_path: str = "car_detections.db"):
+    def __init__(self, db_path: str = "car_detections.db", timeout: float = 5.0):
         """Initialize the SQLite car count repository.
 
         Args:
             db_path (str): Path to the SQLite database file.
+            timeout (float): How long to wait for locks (in seconds). Default: 5.0
         """
         self.db_path = db_path
-        self.connection = sqlite3.connect(self.db_path)
+        self.connection = sqlite3.connect(self.db_path, timeout=timeout)
+        self._enable_wal_mode()
         self._create_table()
+
+    def _enable_wal_mode(self):
+        """Enable WAL (Write-Ahead Logging) mode for better concurrency.
+
+        WAL mode allows multiple readers and one writer to access the database
+        simultaneously without blocking each other.
+        """
+        self.connection.execute("PRAGMA journal_mode=WAL")
+        self.connection.commit()
 
     def _create_table(self):
         """Create the car_detections table if it doesn't exist."""
