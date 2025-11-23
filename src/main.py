@@ -16,15 +16,14 @@ def main(image_paths: list[str]):
     if local_car_count_repository:
         car_count_repository = InMemoryCarCountRepository()
     else:
-        print("Using SQLite car count repository")
         car_count_repository = SQLiteCarCountRepository("car_detections.db")
-        print("SQLite car count repository created")
     yolo_detection = YOLODetection("yolov8n.pt")
     car_detection_service = CarDetectionService(yolo_detection, car_count_repository)
+    car_counts = []
     for image_path in image_paths:
-        car_count = car_detection_service.detect_cars_in_image(image_path)
-        print(f" Number of cars detected in image {image_path}: {car_count}")
-    return car_count_repository.get_all_car_counts()
+        car_counts.append(car_detection_service.detect_cars_in_image(image_path))
+        print(f" Number of cars detected in image {image_path}: {car_counts[-1]}")
+    return car_counts
 
 
 if __name__ == "__main__":
