@@ -100,11 +100,14 @@ make clean        # Clean up cache and temporary files
   - Makefile for common tasks
   - One-command setup (`make install`)
   - Comprehensive README
-- [x] **[PLACEHOLDER - Add your completed topics here]**
+- [x] **Data Persistence**
+  - SQLite database integration
+  - In-memory and persistent repositories
+  - Hexagonal architecture with repository pattern
+  - Full test coverage for both implementations
 
 ### 🔮 Upcoming Features (TODO)
 
 - [ ] **[Dataset Version Control (DVC)]**
 - [ ] **[MLFlow]**
 - [ ] **[Classification model training]**
-- [ ] **[SQL Database]**

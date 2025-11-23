@@ -19,3 +19,9 @@ htmlcov/
 
 # Ruff cache
 .ruff_cache/
+
+# SQLite databases
+*.db
+*.db-journal
+*.db-wal
+*.db-shm

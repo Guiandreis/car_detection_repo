@@ -1,6 +1,6 @@
 from src.adapters.yolo_detection import YOLODetection
-from src.domain.filter_car_detections import FilterCarDetections
-from src.infra.car_count_repository import CarCountRepository
+from src.domain.car_detection_service import CarDetectionService
+from src.infra.car_count_repository import InMemoryCarCountRepository, SQLiteCarCountRepository
 
 
 def main(image_paths: list[str]):
@@ -12,14 +12,17 @@ def main(image_paths: list[str]):
     Returns:
         list[int]: The car counts for the given image paths.
     """
-    car_count_repository = CarCountRepository()
+    local_car_count_repository = False
+    if local_car_count_repository:
+        car_count_repository = InMemoryCarCountRepository()
+    else:
+        print("Using SQLite car count repository")
+        car_count_repository = SQLiteCarCountRepository("car_detections.db")
+        print("SQLite car count repository created")
+    yolo_detection = YOLODetection("yolov8n.pt")
+    car_detection_service = CarDetectionService(yolo_detection, car_count_repository)
     for image_path in image_paths:
-        yolo_detection = YOLODetection("yolov8n.pt")
-        detections = yolo_detection.detect(image_path)
-        filter_car_detections = FilterCarDetections(class_id=2)
-        car_detections = filter_car_detections.filter_car_detections(detections)
-        car_count_repository.save_car_count_per_image(image_path, len(car_detections))
-        car_count = car_count_repository.get_car_count_per_image(image_path)
+        car_count = car_detection_service.detect_cars_in_image(image_path)
         print(f" Number of cars detected in image {image_path}: {car_count}")
     return car_count_repository.get_all_car_counts()
 
@@ -29,4 +32,3 @@ if __name__ == "__main__":
     image_paths = ["images/car_image.jpg"]
     car_counts = main(image_paths)
     print(f"Car counts: {car_counts}")
-# Test comment

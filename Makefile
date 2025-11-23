@@ -7,7 +7,7 @@ test:
 
 lint:
 	@echo "Running linter..."
-	@uv run ruff check src/ tests/
+	@uv run ruff check src/ tests/ --fix
 
 typecheck:
 	@echo "Running type checker..."
@@ -37,3 +37,14 @@ install:
 	@echo "Installing git hooks..."
 	@uv run --no-project pre-commit install
 	@echo "✓ Setup complete!"
+
+clean:
+	@echo "Cleaning up cache and temporary files..."
+	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	@find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	@find . -type f -name "*.pyo" -delete 2>/dev/null || true
+	@find . -type f -name "*.pyd" -delete 2>/dev/null || true
+	@rm -rf .pytest_cache .ruff_cache .mypy_cache 2>/dev/null || true
+	@rm -rf htmlcov .coverage coverage.xml 2>/dev/null || true
+	@rm -f *.db *.db-journal *.db-wal *.db-shm 2>/dev/null || true
+	@echo "✓ Cleanup complete!"

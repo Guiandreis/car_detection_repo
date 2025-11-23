@@ -1,3 +1,6 @@
+import os
+import tempfile
+from pathlib import Path
 from unittest.mock import Mock
 
 import numpy as np
@@ -5,7 +8,26 @@ import pytest
 
 from src.adapters.yolo_detection import YOLODetection
 from src.domain.filter_car_detections import FilterCarDetections
+from src.infra.car_count_repository import InMemoryCarCountRepository, SQLiteCarCountRepository
 
+
+@pytest.fixture
+def in_memory_car_count_repository():
+    return InMemoryCarCountRepository()
+
+
+@pytest.fixture
+def temp_db():
+    """Create a temporary database file for testing."""
+    fd, path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
+    yield path
+    db_path = Path(path)
+    if db_path.exists():
+        db_path.unlink()
+@pytest.fixture
+def sqlite_car_count_repository(temp_db):
+    return SQLiteCarCountRepository(temp_db)
 
 @pytest.fixture
 def filter_car_detections():
